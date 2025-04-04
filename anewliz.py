@@ -1,41 +1,31 @@
 # Bu dosya, birden fazla lig ve sezon seçimi ile oran analizi yapar.
-# Güncelleme: Veriler Google Drive'dan otomatik indirilir
+# Güncelleme: Veriler artık GitHub üzerinden çekiliyor
 
 import streamlit as st
 import pandas as pd
-import os
-import gdown
 
-# 📥 Google Drive'dan verileri indir
-DATA_DIR = "veriler"
-os.makedirs(DATA_DIR, exist_ok=True)
-
-# Google Drive ID -> Dosya adı eşleşmeleri
-drive_dosyalar = {
-    "1CzCSFCRAzTq4dW8WpryQIMYPAHm9f23h": "all-euro-data-2018-2019.xlsx",
-    "1gC9ErNdB-L03X_AqfpZ4OymVYLyqOhfA": "all-euro-data-2019-2020.xlsx",
-    "1wb7_t6opzC03KzBmvG43mdebIAOHpido": "all-euro-data-2020-2021.xlsx",
-    "1Pkeqvf2StjHj6CTmDY-tFbP_v87FqNVN": "all-euro-data-2021-2022.xlsx",
-    "12b_q1Hx4pNsCBqGuVWH4zwFIrN9gG3Qk": "all-euro-data-2022-2023.xlsx",
-    "10dVl-HLG213DM_ohC3hqpshlDpO6N_yD": "all-euro-data-2023-2024.xlsx",
-    "14NKTARmp0mBMnnsOofSLRA8NWsqL6QKb": "all-euro-data-2024-2025.xlsx"
-}
-
-for dosya_id, isim in drive_dosyalar.items():
-    hedef_yol = os.path.join(DATA_DIR, isim)
-    if not os.path.exists(hedef_yol):
-        url = f"https://drive.google.com/uc?id={dosya_id}"
-        gdown.download(url, hedef_yol, quiet=False)
-
-# 🔍 Analiz Başlangıcı
 st.set_page_config(page_title="İddaa Oran Analiz", layout="centered")
 st.title("🌟 İddaa Oran Analiz Aracı")
 
-xlsx_files = [f for f in os.listdir(DATA_DIR) if f.endswith(".xlsx")]
+# GitHub RAW linki (kendi kullanıcı ve repo adına göre güncelle)
+GITHUB_RAW_URL = "https://raw.githubusercontent.com/kullaniciadi/repo-adi/main/veriler/"
+
+# GitHub'daki Excel dosyalarının adları
+xlsx_files = [
+    "all-euro-data-2018-2019.xlsx",
+    "all-euro-data-2019-2020.xlsx",
+    "all-euro-data-2020-2021.xlsx",
+    "all-euro-data-2021-2022.xlsx",
+    "all-euro-data-2022-2023.xlsx",
+    "all-euro-data-2023-2024.xlsx",
+    "all-euro-data-2024-2025.xlsx"
+]
+
 lig_sezon = []
 for file in xlsx_files:
     sezon = file.replace("all-euro-data-", "").replace(".xlsx", "")
-    xl = pd.ExcelFile(os.path.join(DATA_DIR, file))
+    url = GITHUB_RAW_URL + file
+    xl = pd.ExcelFile(url)
     for sheet in xl.sheet_names:
         lig_sezon.append((sheet, sezon))
 
@@ -84,8 +74,8 @@ if st.button("🔍 Analiz Yap"):
         sezon = file.replace("all-euro-data-", "").replace(".xlsx", "")
         if sezon not in secili_sezonlar:
             continue
-        path = os.path.join(DATA_DIR, file)
-        xl = pd.ExcelFile(path)
+        url = GITHUB_RAW_URL + file
+        xl = pd.ExcelFile(url)
         for lig in secili_ligler:
             if lig in xl.sheet_names:
                 try:
