@@ -7,8 +7,8 @@ import pandas as pd
 st.set_page_config(page_title="İddaa Oran Analiz", layout="centered")
 st.title("🌟 İddaa Oran Analiz Aracı")
 
-# GitHub RAW linki (kendi kullanıcı ve repo adına göre güncelle)
-GITHUB_RAW_URL = "https://raw.githubusercontent.com/kullaniciadi/repo-adi/main/veriler/"
+# GitHub RAW linki (güncellendi)
+GITHUB_RAW_URL = "https://raw.githubusercontent.com/brtsmsk/anewliz/main/"
 
 # GitHub'daki Excel dosyalarının adları
 xlsx_files = [
