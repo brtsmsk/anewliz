@@ -5,7 +5,7 @@ import streamlit as st
 import pandas as pd
 
 st.set_page_config(page_title="İddaa Oran Analiz", layout="centered")
-st.title("🌟 İddaa Oran Analiz Aracı - Berat Şimşek")
+st.title("🌟 İddaa Oran Analiz Aracı")
 
 # GitHub RAW linki (güncellendi)
 GITHUB_RAW_URL = "https://raw.githubusercontent.com/brtsmsk/anewliz/main/"
@@ -103,7 +103,7 @@ if st.button("🔍 Analiz Yap"):
             if {"FTHG", "FTAG"}.issubset(benzer.columns):
                 benzer["Skor"] = benzer["FTHG"].astype(int).astype(str) + "-" + benzer["FTAG"].astype(int).astype(str)
                 benzer["İlk Yarı"] = benzer["HTHG"].astype(int).astype(str) + "-" + benzer["HTAG"].astype(int).astype(str)
-                kolonlar = ["Sezon", "Lig", "HomeTeam", "AwayTeam", "FTR", "B365H", "B365D", "B365A", "Skor", "İlk Yarı"]
+                kolonlar = ["Sezon", "Lig", "HomeTeam", "AwayTeam", "FTR", "B365H", "B365D", "B365A", "İlk Yarı", "Skor"]
             else:
                 kolonlar = ["Sezon", "Lig", "HomeTeam", "AwayTeam", "FTR", "B365H", "B365D", "B365A"]
             st.dataframe(benzer[kolonlar])
