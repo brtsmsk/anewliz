@@ -5,7 +5,10 @@ import streamlit as st
 import pandas as pd
 
 st.set_page_config(page_title="İddaa Oran Analiz", layout="centered")
-st.title("🌟 İddaa Oran Analiz Aracı - Berat Şimşek")
+st.title("🌟 İddaa Oran Analiz Aracı")
+
+# GitHub RAW linki (güncellendi)
+GITHUB_RAW_URL = "https://raw.githubusercontent.com/brtsmsk/anewliz/main/"
 
 # GitHub'daki Excel dosyalarının adları
 xlsx_files = [
