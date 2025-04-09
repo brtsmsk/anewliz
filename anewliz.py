@@ -66,7 +66,7 @@ with st.expander("⚙️ Oran ve Ekstra Filtreler"):
     h = st.number_input("Ev sahibi oranı (1)", value=2.00)
     d = st.number_input("Beraberlik oranı (X)", value=3.00)
     a = st.number_input("Deplasman oranı (2)", value=3.00)
-    tolerans = st.slider("Oran toleransı", 0.1, 1.0, 0.25)
+    tolerans = st.slider("Oran toleransı", 0.1, 1.0, 0.1)
 
 if st.button("🔍 Analiz Yap"):
     df_all = []
