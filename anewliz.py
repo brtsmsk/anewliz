@@ -5,10 +5,7 @@ import streamlit as st
 import pandas as pd
 
 st.set_page_config(page_title="İddaa Oran Analiz", layout="centered")
-st.title("🌟 İddaa Oran Analiz Aracı")
-
-# GitHub RAW linki (güncellendi)
-GITHUB_RAW_URL = "https://raw.githubusercontent.com/brtsmsk/anewliz/main/"
+st.title("🌟 İddaa Oran Analiz Aracı - Berat Şimşek")
 
 # GitHub'daki Excel dosyalarının adları
 xlsx_files = [
@@ -102,13 +99,14 @@ if st.button("🔍 Analiz Yap"):
             st.success(f"{len(benzer)} benzer maç bulundu.")
             if {"FTHG", "FTAG"}.issubset(benzer.columns):
                 benzer["Skor"] = benzer["FTHG"].astype(int).astype(str) + "-" + benzer["FTAG"].astype(int).astype(str)
-                kolonlar = ["Sezon", "Lig", "HomeTeam", "AwayTeam", "FTR", "B365H", "B365D", "B365A", "Skor"]
+                benzer["İlk Yarı"] = benzer["HTHG"].astype(int).astype(str) + "-" + benzer["HTAG"].astype(int).astype(str)
+                kolonlar = ["Sezon", "Lig", "HomeTeam", "AwayTeam", "FTR", "B365H", "B365D", "B365A", "Skor", "İlk Yarı"]
             else:
                 kolonlar = ["Sezon", "Lig", "HomeTeam", "AwayTeam", "FTR", "B365H", "B365D", "B365A"]
             st.dataframe(benzer[kolonlar])
 
             st.subheader("📊 Maç Sonucu Dağılımı")
-            st.bar_chart(benzer["FTR"].value_counts(normalize=True) * 100)
+            st.pyplot(benzer["FTR"].value_counts().plot.pie(autopct="%1.1f%%", figsize=(5, 5), ylabel="").figure)
 
             if not benzer["FTR"].value_counts().empty:
                 tahmin = benzer["FTR"].value_counts().idxmax()
