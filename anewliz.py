@@ -60,13 +60,13 @@ lig_gosterim = sorted([lig_isim_map.get(kod, kod) for kod in ligler])
 varsayilan_lig = lig_isim_map["E0"]
 secili_ligler_gosterim = st.multiselect("🏆 Lig(ler) Seç", lig_gosterim, default=[varsayilan_lig])
 secili_ligler = [kod for kod, isim in lig_isim_map.items() if isim in secili_ligler_gosterim]
-secili_sezonlar = st.multiselect("🗓️ Sezon(lar) Seç", sezonlar, default=["2022-2023", "2023-2024", "2024-2025"])
+secili_sezonlar = st.multiselect("🗓️ Sezon(lar) Seç", sezonlar, default=["2022-2023", "2023-2024"])
 
 with st.expander("⚙️ Oran ve Ekstra Filtreler"):
     h = st.number_input("Ev sahibi oranı (1)", value=2.00)
     d = st.number_input("Beraberlik oranı (X)", value=3.00)
     a = st.number_input("Deplasman oranı (2)", value=3.00)
-    tolerans = st.slider("Oran toleransı", 0.1, 1.0, 0.1)
+    tolerans = st.slider("Oran toleransı", 0.1, 1.0, 0.25)
 
 if st.button("🔍 Analiz Yap"):
     df_all = []
@@ -109,7 +109,7 @@ if st.button("🔍 Analiz Yap"):
             st.dataframe(benzer[kolonlar])
 
             st.subheader("📊 Maç Sonucu Dağılımı")
-            st.pyplot(benzer["FTR"].value_counts().plot.pie(autopct="%1.1f%%", figsize=(5, 5), ylabel="").figure)
+            st.pyplot(benzer["FTR"].value_counts().plot.pie(autopct="%1.1f%%", figsize=(3.5, 3.5), ylabel="").figure)
 
             if not benzer["FTR"].value_counts().empty:
                 tahmin = benzer["FTR"].value_counts().idxmax()
