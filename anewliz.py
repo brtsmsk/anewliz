@@ -8,7 +8,7 @@ st.set_page_config(page_title="İddaa Oran Analiz", layout="centered")
 st.title("🌟 İddaa Oran Analiz Aracı")
 
 # GitHub RAW linki (güncellendi)
-GITHUB_RAW_URL = "https://raw.githubusercontent.com/brtsmsk/anewliz/main/"
+GITHUB_RAW_URL = "https://raw.githubusercontent.com/brtsmsk/iddaa-analiz/main/"
 
 # GitHub'daki Excel dosyalarının adları
 xlsx_files = [
@@ -66,7 +66,7 @@ with st.expander("⚙️ Oran ve Ekstra Filtreler"):
     h = st.number_input("Ev sahibi oranı (1)", value=2.00)
     d = st.number_input("Beraberlik oranı (X)", value=3.00)
     a = st.number_input("Deplasman oranı (2)", value=3.00)
-    tolerans = st.slider("Oran toleransı", 0.1, 1.0, 0.1)
+    tolerans = st.slider("Oran toleransı", 0.1, 1.0, 0.25)
 
 if st.button("🔍 Analiz Yap"):
     df_all = []
@@ -116,6 +116,27 @@ if st.button("🔍 Analiz Yap"):
                 tahmin_map = {"H": "Ev Sahibi Kazanır", "D": "Beraberlik", "A": "Deplasman Kazanır"}
                 st.subheader("🤔 Tahmin")
                 st.write(f"Bu oranlara en uygun tahmin: **{tahmin_map.get(tahmin, 'Bilinmiyor')}**")
+
+                # Ek istatistik grafikler
+                if {"FTHG", "FTAG", "HTHG"}.issubset(benzer.columns):
+                    st.subheader("📈 Ek Maç Özeti Dağılımı")
+                    # İlk Yarı 0.5 ÜST (HTHG+HTAG > 0)
+                    benzer["İY 0.5 Üst"] = (benzer["HTHG"] + benzer["HTAG"] > 0).map({True: "Evet", False: "Hayır"})
+                    # Maç 2.5 ÜST (FTHG+FTAG > 2)
+                    benzer["2.5 Üst"] = (benzer["FTHG"] + benzer["FTAG"] > 2).map({True: "Evet", False: "Hayır"})
+                    # KG VAR (her iki takım da gol attı)
+                    benzer["KG Var"] = ((benzer["FTHG"] > 0) & (benzer["FTAG"] > 0)).map({True: "Evet", False: "Hayır"})
+
+                    col1, col2, col3 = st.columns(3)
+                    with col1:
+                        st.markdown("**İY 0.5 Üst**")
+                        st.pyplot(benzer["İY 0.5 Üst"].value_counts().plot.pie(autopct="%1.1f%%", figsize=(3.3,3.3), ylabel="").figure)
+                    with col2:
+                        st.markdown("**2.5 Üst**")
+                        st.pyplot(benzer["2.5 Üst"].value_counts().plot.pie(autopct="%1.1f%%", figsize=(3.3,3.3), ylabel="").figure)
+                    with col3:
+                        st.markdown("**KG Var**")
+                        st.pyplot(benzer["KG Var"].value_counts().plot.pie(autopct="%1.1f%%", figsize=(3.3,3.3), ylabel="").figure)}**")
             else:
                 st.info("Tahmin üretilemedi çünkü maç sonucu bilgisi eksik.")
         else:
