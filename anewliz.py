@@ -118,7 +118,7 @@ if st.button("🔍 Analiz Yap"):
                 st.write(f"Bu oranlara en uygun tahmin: **{tahmin_map.get(tahmin, 'Bilinmiyor')}**")
 
                 # Ek istatistik grafikler
-                if {"FTHG", "FTAG", "HTHG"}.issubset(benzer.columns):
+                if True:
                     st.subheader("📈 Ek Maç Özeti Dağılımı")
                     # İlk Yarı 0.5 ÜST (HTHG+HTAG > 0)
                     benzer["İY 0.5 Üst"] = (benzer["HTHG"] + benzer["HTAG"] > 0).map({True: "Evet", False: "Hayır"})
