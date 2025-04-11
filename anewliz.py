@@ -91,7 +91,7 @@ if st.button("🔍 Analiz Yap"):
     if df_all:
         df = pd.concat(df_all, ignore_index=True)
         df = df.dropna(subset=["HomeTeam", "AwayTeam", "FTR"])
-        
+
         try:
             h = float(h)
             d = float(d)
@@ -99,7 +99,7 @@ if st.button("🔍 Analiz Yap"):
         except:
             st.warning("Lütfen geçerli oranları sayı olarak girin.")
             st.stop()
-            
+
         benzer = df[
             ((df["B365H"] - h).abs() < tolerans) &
             ((df["B365D"] - d).abs() < tolerans) &
@@ -138,13 +138,13 @@ if st.button("🔍 Analiz Yap"):
                     col1, col2, col3 = st.columns(3)
                     with col1:
                         st.markdown("**İY 0.5 Üst**")
-                        st.pyplot(benzer["İY 0.5 Üst"].value_counts().plot.pie(autopct="%1.1f%%", figsize=(3.3,3.3), ylabel="").figure)
+                        st.pyplot(benzer["İY 0.5 Üst"].value_counts().plot.pie(autopct="%1.1f%%", figsize=(4, 4), startangle=90, ylabel="").figure)
                     with col2:
                         st.markdown("**2.5 Üst**")
-                        st.pyplot(benzer["2.5 Üst"].value_counts().plot.pie(autopct="%1.1f%%", figsize=(3.3,3.3), ylabel="").figure)
+                        st.pyplot(benzer["2.5 Üst"].value_counts().plot.pie(autopct="%1.1f%%", figsize=(4, 4), startangle=90, ylabel="").figure)
                     with col3:
-                        st.markdown("**KG Var**")
-                        st.pyplot(benzer["KG Var"].value_counts().plot.pie(autopct="%1.1f%%", figsize=(3.3, 3.3), ylabel="").figure)
+                    st.markdown("**KG Var**")
+                    st.pyplot(benzer["KG Var"].value_counts().plot.pie(autopct="%1.1f%%", figsize=(4, 4), startangle=90, ylabel="").figure)
             else:
                 st.info("Tahmin üretilemedi çünkü maç sonucu bilgisi eksik.")
         else:
