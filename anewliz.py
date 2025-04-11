@@ -63,9 +63,9 @@ secili_ligler = [kod for kod, isim in lig_isim_map.items() if isim in secili_lig
 secili_sezonlar = st.multiselect("🗓️ Sezon(lar) Seç", sezonlar, default=["2021-2022", "2022-2023", "2023-2024", "2024-2025"])
 
 with st.expander("⚙️ Oran ve Ekstra Filtreler"):
-    h = st.number_input("Ev sahibi oranı (1)", value=0.0)
-    d = st.number_input("Beraberlik oranı (X)", value=0.0)
-    a = st.number_input("Deplasman oranı (2)", value=0.0)
+    h = st.text_input("Ev sahibi oranı (1)")
+    d = st.text_input("Beraberlik oranı (X)")
+    a = st.text_input("Deplasman oranı (2)")
     tolerans = st.slider("Oran toleransı", 0.01, 1.0, 0.05)
 
 if st.button("🔍 Analiz Yap"):
@@ -91,7 +91,15 @@ if st.button("🔍 Analiz Yap"):
     if df_all:
         df = pd.concat(df_all, ignore_index=True)
         df = df.dropna(subset=["HomeTeam", "AwayTeam", "FTR"])
-
+        
+        try:
+            h = float(h)
+            d = float(d)
+            a = float(a)
+        except:
+            st.warning("Lütfen geçerli oranları sayı olarak girin.")
+            st.stop()
+            
         benzer = df[
             ((df["B365H"] - h).abs() < tolerans) &
             ((df["B365D"] - d).abs() < tolerans) &
