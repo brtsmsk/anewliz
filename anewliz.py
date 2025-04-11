@@ -63,9 +63,9 @@ secili_ligler = [kod for kod, isim in lig_isim_map.items() if isim in secili_lig
 secili_sezonlar = st.multiselect("🗓️ Sezon(lar) Seç", sezonlar, default=["2021-2022", "2022-2023", "2023-2024", "2024-2025"])
 
 with st.expander("⚙️ Oran ve Ekstra Filtreler"):
-    h = st.number_input("Ev sahibi oranı (1)", value=2.00)
-    d = st.number_input("Beraberlik oranı (X)", value=3.00)
-    a = st.number_input("Deplasman oranı (2)", value=3.00)
+    h = st.number_input("Ev sahibi oranı (1)", value=)
+    d = st.number_input("Beraberlik oranı (X)", value=)
+    a = st.number_input("Deplasman oranı (2)", value=)
     tolerans = st.slider("Oran toleransı", 0.01, 1.0, 0.05)
 
 if st.button("🔍 Analiz Yap"):
