@@ -8,7 +8,7 @@ st.set_page_config(page_title="İddaa Oran Analiz", layout="centered")
 st.title("🌟 İddaa Oran Analiz Aracı")
 
 # GitHub RAW linki (güncellendi)
-GITHUB_RAW_URL = "https://raw.githubusercontent.com/brtsmsk/iddaa-analiz/main/"
+GITHUB_RAW_URL = "https://raw.githubusercontent.com/brtsmsk/anewliz/main/"
 
 # GitHub'daki Excel dosyalarının adları
 xlsx_files = [
@@ -66,7 +66,7 @@ with st.expander("⚙️ Oran ve Ekstra Filtreler"):
     h = st.number_input("Ev sahibi oranı (1)", value=2.00)
     d = st.number_input("Beraberlik oranı (X)", value=3.00)
     a = st.number_input("Deplasman oranı (2)", value=3.00)
-    tolerans = st.slider("Oran toleransı", 0.1, 1.0, 0.25)
+    tolerans = st.slider("Oran toleransı", 0.01, 1.0, 0.05)
 
 if st.button("🔍 Analiz Yap"):
     df_all = []
@@ -135,8 +135,8 @@ if st.button("🔍 Analiz Yap"):
                         st.markdown("**2.5 Üst**")
                         st.pyplot(benzer["2.5 Üst"].value_counts().plot.pie(autopct="%1.1f%%", figsize=(3.3,3.3), ylabel="").figure)
                     with col3:
-                        st.markdown("**KG Var**")
-                        st.pyplot(benzer["KG Var"].value_counts().plot.pie(autopct="%1.1f%%", figsize=(3.3,3.3), ylabel="").figure)}**")
+                    st.markdown("**KG Var**")
+                    st.pyplot(benzer["KG Var"].value_counts().plot.pie(autopct="%1.1f%%", figsize=(3.3,3.3), ylabel="").figure).plot.pie(autopct="%1.1f%%", figsize=(3.3,3.3), ylabel="").figure)}**")
             else:
                 st.info("Tahmin üretilemedi çünkü maç sonucu bilgisi eksik.")
         else:
