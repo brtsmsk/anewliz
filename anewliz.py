@@ -136,7 +136,7 @@ if st.button("🔍 Analiz Yap"):
                         st.pyplot(benzer["2.5 Üst"].value_counts().plot.pie(autopct="%1.1f%%", figsize=(3.3,3.3), ylabel="").figure)
                     with col3:
                     st.markdown("**KG Var**")
-                    st.pyplot(benzer["KG Var"].value_counts().plot.pie(autopct="%1.1f%%", figsize=(3.3,3.3), ylabel="").figure).plot.pie(autopct="%1.1f%%", figsize=(3.3,3.3), ylabel="").figure)}**")
+                    st.pyplot(benzer["KG Var"].value_counts().plot.pie(autopct="%1.1f%%", figsize=(3.3,3.3), ylabel="").figure)
             else:
                 st.info("Tahmin üretilemedi çünkü maç sonucu bilgisi eksik.")
         else:
