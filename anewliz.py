@@ -60,7 +60,7 @@ lig_isim_map = {
 lig_gosterim = sorted([lig_isim_map.get(kod, kod) for kod in ligler])
 secili_ligler_gosterim = st.multiselect("🏆 Lig(ler) Seç", lig_gosterim, default=[lig_isim_map[kod] for kod in ["E0", "B1", "D1", "F1", "G1", "N1", "P1", "E1", "EC", "I1", "I2", "SC0", "SP1", "SP2", "T1"] if kod in lig_isim_map])
 secili_ligler = [kod for kod, isim in lig_isim_map.items() if isim in secili_ligler_gosterim]
-secili_sezonlar = st.multiselect("🗓️ Sezon(lar) Seç", sezonlar, default=["2021-2022", "2022-2023", "2023-2024", "2024-2025"])
+secili_sezonlar = st.multiselect("🗓️ Sezon(lar) Seç", sezonlar, default=["2022-2023", "2023-2024", "2024-2025"])
 
 with st.expander("⚙️ Oran ve Ekstra Filtreler"):
     h = st.number_input("Ev sahibi oranı (h)", value=None, placeholder="Örn: 2.00")
