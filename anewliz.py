@@ -120,8 +120,7 @@ if st.button("🔍 Analiz Yap"):
             if not benzer["FTR"].value_counts().empty:
                 tahmin = benzer["FTR"].value_counts().idxmax()
                 tahmin_map = {"H": "Ev Sahibi Kazanır", "D": "Beraberlik", "A": "Deplasman Kazanır"}
-                st.subheader("🤔 Tahmin")
-                st.write(f"Bu oranlara en uygun tahmin: **{tahmin_map.get(tahmin, 'Bilinmiyor')}**")
+               
 
                 st.subheader("📈 Ek Maç Özeti Dağılımı")
                 benzer["İY 0.5 Üst"] = (benzer["HTHG"] + benzer["HTAG"] > 0).map({True: "Evet", False: "Hayır"})
